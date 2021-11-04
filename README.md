@@ -16,7 +16,7 @@
 ### Association
 
 * has_many :items
-* has_many :purchase_record
+* has_many :purchase_records
 
 ## items テーブル
 | Column               | Type       | Options                        |
@@ -29,15 +29,15 @@
 | item_prefecture_id   | integer    | null:false                     |
 | item_derivery_id     | integer    | null:false                     |
 | item_price           | integer    | null: false                    |
-| user                 | reference  | null: false 外部キー            |
+| user                 | reference  | null: false foreign_key: true  |
 
 ### Association
 
-* belongs_to :users
-* has_many :purchase_record
+* belongs_to :user
+* has_many :purchase_records
 
 
-## purchase_record テーブル
+## purchase_records テーブル
 | Column     | Type       | Options                        |
 | ---------- | ---------- | ------------------------------ |
 | item       | references | null: false, foreign_key: true |
@@ -45,12 +45,12 @@
 
 ### Association
 
-* belongs_to :users
-* belongs_to :items
-* has_many :shipping_info
+* belongs_to :user
+* belongs_to :item
+* has_many :shipping_infos
 
 
-## shipping_info テーブル
+## shipping_infos テーブル
 
 | Column              | Type       | Options                        |
 | ------------------- | ---------- | ------------------------------ |
@@ -63,4 +63,4 @@
 
 ### Association
 
-- belongs_to :purchase_record
+＊ belongs_to :purchase_record
