@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :item do
     name              {'テスト'}
     content           {'テストテスト'}
-    category_id       {'1'}
+    category_id       {'3'}
     status_id         {'2'}
     shipping_fee_id   {'2'}
     prefecture_id     {'2'}
