@@ -3,6 +3,7 @@ class Item < ApplicationRecord
   has_one_attached :image
 
   with_options presence: true do
+    validates :image
     validates :name, length: { maximum: 40 }
     validates :content, length: { maximum: 1000 }
     validates :category_id, numericality: { other_than: 1 ,message: "can't be blank"}
