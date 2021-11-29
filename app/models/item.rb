@@ -4,6 +4,11 @@ class Item < ApplicationRecord
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :shipping_fee
+  belongs_to :category
+  belongs_to :derivery
+  belongs_to :prefecture
+  belongs_to :status
+
 
   with_options presence: true do
     validates :image
