@@ -1,4 +1,3 @@
 class Article < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
 end
-
