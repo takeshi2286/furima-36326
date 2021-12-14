@@ -8,7 +8,6 @@ RSpec.describe Order, type: :model do
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
       @order = FactoryBot.build(:order, user_id: user.id, item_id: item.id)
-      sleep(0.1)
     end
 
     context '購入がうまくいくとき' do
@@ -18,6 +17,10 @@ RSpec.describe Order, type: :model do
 
       it '建物名が入力されていなくても登録できる' do
         @order.purchaser_building = ''
+        expect(@order).to be_valid
+      end
+
+      it "tokenがあれば保存ができること" do
         expect(@order).to be_valid
       end
     end
@@ -64,6 +67,12 @@ RSpec.describe Order, type: :model do
         @order.post_number = '１２３４５６７'
         @order.valid?
         expect(@order.errors.full_messages).to include("Post number is invalid")
+      end
+
+      it "tokenが空では登録できないこと" do
+        @order.token = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Token can't be blank")
       end
     end
   end
