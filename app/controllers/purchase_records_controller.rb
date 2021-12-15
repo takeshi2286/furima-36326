@@ -1,4 +1,6 @@
 class PurchaseRecordsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :new]
+  before_action :move_to_index, only: [:index, :new]
 
   def index
     @item = Item.find(params[:item_id])
@@ -34,6 +36,12 @@ class PurchaseRecordsController < ApplicationController
       card: purchase_params[:token],    # カードトークン
       currency: 'jpy'                 # 通貨の種類（日本円）
     )
+  end
+
+  def move_to_index
+    if  @item.present?
+    redirect_to root_path
+    end
   end
 
 
