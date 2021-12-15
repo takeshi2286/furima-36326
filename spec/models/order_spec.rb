@@ -8,6 +8,7 @@ RSpec.describe Order, type: :model do
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
       @order = FactoryBot.build(:order, user_id: user.id, item_id: item.id)
+      sleep(0.1)
     end
 
     context '購入がうまくいくとき' do
@@ -32,8 +33,8 @@ RSpec.describe Order, type: :model do
         expect(@order.errors.full_messages).to include("Post number can't be blank")
       end
 
-      it '都道府県が空では登録できない' do
-        @order.prefecture_id = ''
+      it '都道府県の項目が未選択の場合エラーが出る' do
+        @order.prefecture_id = '1'
         @order.valid?
         expect(@order.errors.full_messages).to include("Prefecture can't be blank")
       end
@@ -69,7 +70,7 @@ RSpec.describe Order, type: :model do
         expect(@order.errors.full_messages).to include("Telephone number is invalid")
       end
 
-      it '電話番号は11桁以上11桁は保存できない' do
+      it '電話番号は11桁以上は保存できない' do
         @order.telephone_number = '090123412345'
         @order.valid?
         expect(@order.errors.full_messages).to include("Telephone number is invalid")
@@ -85,6 +86,18 @@ RSpec.describe Order, type: :model do
         @order.token = nil
         @order.valid?
         expect(@order.errors.full_messages).to include("Token can't be blank")
+      end
+
+      it "userが紐づいていなければ登録できないこと" do
+        @order.user_id = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("User can't be blank")
+      end
+
+      it "itemが紐づいていなければ登録できないこと" do
+        @order.item_id = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
