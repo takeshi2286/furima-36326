@@ -70,7 +70,7 @@ RSpec.describe Order, type: :model do
         expect(@order.errors.full_messages).to include("Telephone number is invalid")
       end
 
-      it '電話番号は11桁以上は保存できない' do
+      it '電話番号は12桁以上は保存できない' do
         @order.telephone_number = '090123412345'
         @order.valid?
         expect(@order.errors.full_messages).to include("Telephone number is invalid")
