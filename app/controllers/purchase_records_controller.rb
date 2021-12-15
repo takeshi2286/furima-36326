@@ -1,6 +1,8 @@
 class PurchaseRecordsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :new]
+  before_action :authenticate_user!, only: [:index, :new]
+  before_action :item_find, only: [:index, :new]
   before_action :move_to_index, only: [:index, :new]
+
 
   def index
     @item = Item.find(params[:item_id])
@@ -38,8 +40,12 @@ class PurchaseRecordsController < ApplicationController
     )
   end
 
+  def item_find
+    @item = Item.find(params[:item_id])
+  end
+
   def move_to_index
-    if  @item.present?
+    if @item.purchase_record.present?
     redirect_to root_path
     end
   end
