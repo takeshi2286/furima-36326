@@ -63,6 +63,18 @@ RSpec.describe Order, type: :model do
         expect(@order.errors.full_messages).to include("Telephone number is invalid")
       end
 
+      it '電話番号は9桁以下は保存できない' do
+        @order.telephone_number = '090123456'
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Telephone number is invalid")
+      end
+
+      it '電話番号は11桁以上11桁は保存できない' do
+        @order.telephone_number = '090123412345'
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Telephone number is invalid")
+      end
+
       it '郵便番号は、「3桁ハイフン4桁」の半角文字列でなければ保存できない' do
         @order.post_number = '１２３４５６７'
         @order.valid?

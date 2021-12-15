@@ -7,7 +7,7 @@ class Order
     validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :purchaser_city
     validates :purchaser_address
-    validates :telephone_number, format: {with: /\A[0-9]{11}\Z/}
+    validates :telephone_number, format: {with: /\A[0-9]{10,11}\Z/}
     validates :user_id
     validates :item_id
     validates :token

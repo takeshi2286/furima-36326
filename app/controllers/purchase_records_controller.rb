@@ -1,7 +1,7 @@
 class PurchaseRecordsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :new]
-  before_action :item_find, only: [:index, :new]
-  before_action :move_to_index, only: [:index, :new]
+  before_action :authenticate_user!, only: [:index, :create]
+  before_action :item_find, only: [:index, :create]
+  before_action :move_to_index, only: [:index, :create]
 
 
   def index
@@ -9,9 +9,6 @@ class PurchaseRecordsController < ApplicationController
     @order = Order.new
   end
 
-  def new
-    @order = Order.new
-  end
 
   def create
     @order = Order.new(purchase_params)
@@ -32,7 +29,7 @@ class PurchaseRecordsController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = "sk_test_04916d6abbb950ab15ae84d5"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+    Payjp.api_key = "PAYJP_SECRET_KEY"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
     Payjp::Charge.create(
       amount: @item.price,  # 商品の値段
       card: purchase_params[:token],    # カードトークン
